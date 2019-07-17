@@ -20,19 +20,25 @@ My pipeline consisted of 5 steps:
     1. Convert image from RGB to gray. Used helper function grayscale
     2. Applied some gaussian smoothing. Used helper function gaussian_blur
     3. Run canny edge detection on this smoothened image. Used helper function canny
-    4. I noticed a pattern of how lines showed up right about the center of the image. So added some logic to crop the region of interest      
-    5. Draw hough lines on this roi image. Used helper function hough_lines which internally used draw_lines
+    4. I noticed a pattern of how lines showed up right about the center of the image. 
+       So added some logic to crop the region of interest      
+    5. Draw hough lines on this roi image. Used helper function hough_lines which 
+       internally used draw_lines
 
 In order to draw the left and right lanes, I added some logic to draw_lines() in order to:
     
     For each image:
     1. Find all poosible hough lines using  cv2.HoughLinesP 
     2. Then find slopes of all these possible hough lines.
-    3. Ignore some of the lines which were either too veritical or too horizontal and look at them only if they were in a comfortable range.
-    4. While looping through all these hough lines that match our criteria, I was collecting these points in separate arrays left_line_points and right_line_points
-    5. For both the left and right points, I then use cv2.fitLine to get the equation of the left and right params
+    3. Ignore some of the lines which were either too veritical or too horizontal and look at them 
+       only if they were in a comfortable range.
+    4. While looping through all these hough lines that match our criteria, I was collecting these 
+       points in separate arrays left_line_points and right_line_points
+    5. For both the left and right points, I then use cv2.fitLine to get the equation of the left 
+       and right params
     6. Then using more coordinate geometry I found the point of intersection (POI).
-    7. With the aim to draw lines and extrapolate them to point where they almost meet, I decided to find the POI and extrapolate my lines only a little below the POI.
+    7. With the aim to draw lines and extrapolate them to point where they almost meet, I decided 
+       to find the POI and extrapolate my lines only a little below the POI.
     
 ![alt text][image1]
 
